@@ -1,0 +1,50 @@
+-- Create Table Clothing 
+
+CREATE TABLE clothing (ID INTEGER PRIMARY KEY, name TEXT, cost INTEGER, color INTEGER, quantity INTEGER);
+
+-- Inserting values into the table 
+
+INSERT INTO clothing VALUES (1, "Nike Lows", 250, black, 2);
+INSERT INTO clothing VALUES (2, "heels", 50, tan, 3);
+INSERT INTO clothing VALUES (3, "jeans, 45, blue, 5);
+INSERT INTO clothing VALUES (4, "crop top", 10, red, 3);
+INSERT INTO clothing VALUES (5, "t-shirt", 25, blue, 10);
+INSERT INTO clothing VALUES (6, "blouse," 32, white, 2);
+INSERT INTO clothing VALUES (7, "socks", 8, black, 20); 
+INSERT INTO clothing VALUES (8, "skirts", 12, black, 2);
+INSERT INTO clothing VALUES (9, "dress", 45, pink, 3);
+INSERT INTO clothing VALUES (10, "pj tops", 15, gray, 4);
+INSERT INTO clothing VALUES (11, "slippers", 12, green, 1);
+INSERT INTO clothing VALUES (12, "jacket", 30, black, 5);
+INSERT INTO clothing VALUES (13, "shorts", 10, blue, 4);
+INSERT INTO clothing VALUES (14, "necklace",8, silver, 5);
+INSERT INTO clothing VALUES (15, "rings", 6, gold, 12);
+
+-- Querying the data 
+
+-- How many items in this table are in each category?
+
+SELECT COUNT(name)
+FROM clothing; 
+
+-- Order all items by the most expenisve to the least expensive.
+
+SELECT * 
+FROM clothing 
+ORDER BY cost DESC;
+
+
+-- How much does each item cost by color? 
+
+SELECT SUM(cost)
+FROM clothing 
+GROUP BY color; 
+
+-- Which clothing item(s) cost less than 10 dollars and how many are there? 
+
+SELECT name, COUNT(name), cost
+FROM clothing 
+WHERE cost > 10; 
+  
+
+-- 
