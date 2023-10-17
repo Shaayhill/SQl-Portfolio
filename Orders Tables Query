@@ -1,0 +1,50 @@
+
+
+
+WITH SalesData AS (
+  SELECT
+    Orders.CustomerID,
+    SUM(OrderDetails.Quantity * OrderDetails.UnitPrice) AS TotalSales
+  FROM
+    Orders
+  JOIN
+    OrderDetails ON Orders.OrderID = OrderDetails.OrderID
+  WHERE
+    Orders.OrderDate >= '2023-01-01' AND Orders.OrderDate <= '2023-12-31'
+  GROUP BY
+    Orders.CustomerID
+  HAVING
+    SUM(OrderDetails.Quantity * OrderDetails.UnitPrice) > 1000
+),
+
+RankedSales AS (
+  SELECT
+    CustomerID,
+    TotalSales,
+    ROW_NUMBER() OVER (ORDER BY TotalSales DESC) AS SalesRank
+  FROM
+    SalesData
+)
+
+SELECT
+  CustomerID,
+  TotalSales,
+  SalesRank
+FROM
+  RankedSales
+WHERE
+  SalesRank <= 10
+ORDER BY
+  TotalSales DESC
+LIMIT
+  10;
+
+
+
+I define a Common Table Expression (CTE) named SalesData that calculates the total sales for each customer who made orders within a specific date range and has a total sales amount greater than $1000.
+
+Another CTE named RankedSales is defined to rank customers based on their total sales in descending order using the ROW_NUMBER() window function.
+
+In the final SELECT statement, I retrieve the top 10 customers with the highest total sales, filtering by SalesRank, and ordering the results by TotalSales in descending order. We also use the LIMIT clause to limit the result set to 10 rows.
+
+This query combines several clauses and demonstrates the use of CTEs, window functions, and various clauses for filtering, grouping, and ordering data.
